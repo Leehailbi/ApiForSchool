@@ -13,7 +13,6 @@ app.use(express.json())
 // Without `express.json()`, `req.body` is undefined.
 app.use(router)
 app.use(UserRouter)
-
 app.listen(port ,()=>{
     console.log(`app running on port ${port}....`)
 })
