@@ -69,11 +69,8 @@ const deleteTeacherById =  async(req,res)=>{
     try{
         const _id = req.params.id
         const delIndiv = await teacher.findByIdAndDelete(_id)
-        // if(_id === delIndiv){
-        //     res.send("Data is already deleted")
-        // }
+
             res.json({
-                status: "Deletion is success",
                 data:{
                     delIndiv
                 }

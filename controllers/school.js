@@ -72,7 +72,6 @@ const deleteSchoolById =  async(req,res)=>{
         const _id = req.params.id
         const delIndiv = await School.findByIdAndDelete(_id)
         res.json({
-            status: "deletion success ",
             data:{
                 delIndiv
             }
