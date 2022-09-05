@@ -1,15 +1,15 @@
-const userData = require("../models/UserShema")
+const User = require("../models/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const SECRET_KEY = "SCHOOL_API"
 
-// Sinup Details
-const Signup = async(req,res)=>{
+// Signup Details
+const signUp = async(req,res)=>{
 
-    const {schoolname ,email, password } = req.body
+    const {schoolName ,email, password } = req.body
     try{
         // Check Existing user
-        const existinguser = await userData.findOne({email: email})
+        const existinguser = await User.findOne({email: email})
         if(existinguser){
             return res.status(400).json({
                 message: " Email  already Exists"
@@ -18,10 +18,10 @@ const Signup = async(req,res)=>{
         // Create Hashed password
         const hashedPassword = await bcrypt.hash(password,10)
         //Create Users
-        const result = await userData.create({
+        const result = await User.create({
             email : email,
             password : hashedPassword,
-            schoolname : schoolname
+            schoolName : schoolName
         })
         // Token Generate
 
@@ -36,18 +36,18 @@ const Signup = async(req,res)=>{
     catch(err){
         console.log(err)
         res.status(500).json({
-            message: "Somthing Went Wrong"
+            message: "Email/Password should not be empty"
         })
     }
 }
 
 // Login Details
-const Login = async(req,res)=>{
+const logIn = async(req,res)=>{
     const {email, password} = req.body
     try{
         // Check the existing User
 
-        const existinguser = await userData.findOne({email: email})
+        const existinguser = await User.findOne({email: email})
         if(!existinguser){
             return res.status(404).json({
                 message: " User Not Found "
@@ -57,7 +57,7 @@ const Login = async(req,res)=>{
         const matchPassword = await  bcrypt.compare(password, existinguser.password)
         if (!matchPassword){
             return res.status(400).json({
-                message: "Invalid Credentilas"
+                message: "Invalid Credentilas Password "
 
             })
         }
@@ -81,4 +81,4 @@ const Login = async(req,res)=>{
 
 }
 
-module.exports = { Signup, Login }
+module.exports = { signUp, logIn }

@@ -4,43 +4,43 @@ const mongoose = require("mongoose")
 
 // School Schema
 
-const schSchema  = new mongoose.Schema({
-    Schoolname:{
+const schoolSchema  = new mongoose.Schema({
+    schoolName:{
         type: String,
-        required: true,
+        required: [true,"School name is required"],
         unique: true,
         trim:true,
         
     },
-    SchoolType:{
+    schoolType:{
         type: String,
-        required: true
+        required: [true, "School type is required"]
     },
     
     highestClass:{
         type: String,
     },
-    Totalstudents:{
+    totalStudents:{
         type: Number, 
         trim: true  
         },
     
-    TotalTeachers:{
+    totalTeachers:{
         type: Number,
         trim: true
         
     },
-    NumbersOfrooms:{
+    numberOfRooms:{
         type: Number,
         trim: true
     },
     address:{
         type: String,
-        required: true
+        required: [true," Address is required"]
     }
 })
 
 // we are creating a new collection
-const Schdetails = mongoose.model('Schdetails', schSchema)
-module.exports = Schdetails
+const School = mongoose.model('school', schoolSchema)
+module.exports = School
 

@@ -3,13 +3,14 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 //Mongoose schema defines the structure of the document
 const userSchema  = new mongoose.Schema({
-    schoolname:{
+    schoolName:{
         type: String,
-        required: [true, 'please tell us schoolname'],
+        unique: true,
+        lowercase:true
     },
     email:{
         type: String,
-        required: true,
+        required: [true,"Email is required"],
         unique: true,
         lowercase: true,
         validate: [validator.isEmail, "please provide a valid email"]
@@ -19,13 +20,13 @@ const userSchema  = new mongoose.Schema({
     
     password:{
         type: String,
-        required: true,
+        required: [true,"Password is required"],
         minlength: 8
     }
 })
 
 // we are creating a new collection
-const userData = mongoose.model('userData', userSchema)
+const User = mongoose.model('user', userSchema)
 //Mongoose model provides an interface to the database for creating, querying, updating, deleting records,
-module.exports = userData
+module.exports = User
 
